@@ -1,0 +1,31 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "src/main.py",
+            "use": "@vercel/python"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/style.css",
+            "dest": "/static/style.css"
+        },
+        {
+            "src": "/app.js",
+            "dest": "/static/app.js"
+        },
+        {
+            "src": "/healthz",
+            "dest": "/src/main.py"
+        },
+        {
+            "src": "/v1/(.*)",
+            "dest": "/src/main.py"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/static/index.html"
+        }
+    ]
+}

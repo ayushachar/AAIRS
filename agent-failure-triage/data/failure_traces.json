@@ -1,0 +1,302 @@
+[
+  {
+    "id": 0,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 0\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nTOOL CALL: retrieve_db\nWARN: Enum drift detected in status field.\nFATAL: Tool contract violated.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 0",
+    "expected_layer_prefix": "L1",
+    "expected_layer": "L1_TOOL_AND_SCHEMA_CONTRACTS"
+  },
+  {
+    "id": 1,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 1\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nChunk boundary truncation in retrieved context.\nERROR: Empty context threshold triggered.\nSearching vector DB... semantic drift detected.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 1",
+    "expected_layer_prefix": "L2",
+    "expected_layer": "L2_RETRIEVAL_AND_RAG"
+  },
+  {
+    "id": 2,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 2\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nHTTP 429 Too Many Requests from dependency agent.\nERROR: DB pool exhaustion on connection acquire.\nFATAL: Infrastructure connection timeout.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 2",
+    "expected_layer_prefix": "L3",
+    "expected_layer": "L3_INFRASTRUCTURE_AND_EXTERNAL_APIS"
+  },
+  {
+    "id": 3,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 3\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nContext length exceeded maximum allowed tokens.\nERROR: Lost in the middle retrieval loss detected.\nException: token overflow during chat completion.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 3",
+    "expected_layer_prefix": "L4",
+    "expected_layer": "L4_CONTEXT_WINDOW_AND_TOKEN_LIMITS"
+  },
+  {
+    "id": 4,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 4\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nRecursive multi-agent routing loop detected.\nERROR: Orchestration missing explicit fallbacks.\nAgent routed to agent B, which routed to agent A.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 4",
+    "expected_layer_prefix": "L5",
+    "expected_layer": "L5_ORCHESTRATION_AND_ROUTING"
+  },
+  {
+    "id": 5,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 5\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nNon-idempotent double mutation triggered on retry.\nSilent masking of duplicate document collision error.\nERROR: Retry storm without exponential backoff.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 5",
+    "expected_layer_prefix": "L6",
+    "expected_layer": "L6_RETRY_LOGIC_AND_SIDE_EFFECTS"
+  },
+  {
+    "id": 6,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 6\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nWARN: Prompt injection via untrusted tool output.\nFAIL: Model behavior generated malformed XML.\nDelimiter breakage in system prompt parsing.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 6",
+    "expected_layer_prefix": "L7",
+    "expected_layer": "L7_MODEL_BEHAVIOR_AND_PROMPT_DRIFT"
+  },
+  {
+    "id": 7,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 7\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nRace condition on shared session memory.\nERROR: Dirty cache hit corrupted state.\nWARN: Stale cache hit overriding fresh DB state.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 7",
+    "expected_layer_prefix": "L8",
+    "expected_layer": "L8_STATE_CACHE_AND_CONCURRENCY"
+  },
+  {
+    "id": 8,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 8\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nFATAL: Tool contract violated.\nException: Schema mismatch in user_id, expected int got string.\nTOOL CALL: retrieve_db\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 8",
+    "expected_layer_prefix": "L1",
+    "expected_layer": "L1_TOOL_AND_SCHEMA_CONTRACTS"
+  },
+  {
+    "id": 9,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 9\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nSearching vector DB... semantic drift detected.\nERROR: Empty context threshold triggered.\nChunk boundary truncation in retrieved context.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 9",
+    "expected_layer_prefix": "L2",
+    "expected_layer": "L2_RETRIEVAL_AND_RAG"
+  },
+  {
+    "id": 10,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 10\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nFATAL: Infrastructure connection timeout.\nERROR: DB pool exhaustion on connection acquire.\nERROR: Bearer token expired on upstream API.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 10",
+    "expected_layer_prefix": "L3",
+    "expected_layer": "L3_INFRASTRUCTURE_AND_EXTERNAL_APIS"
+  },
+  {
+    "id": 11,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 11\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nContext length exceeded maximum allowed tokens.\nException: token overflow during chat completion.\nJSON truncation at character 4096.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 11",
+    "expected_layer_prefix": "L4",
+    "expected_layer": "L4_CONTEXT_WINDOW_AND_TOKEN_LIMITS"
+  },
+  {
+    "id": 12,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 12\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nAgent routed to agent B, which routed to agent A.\nRecursive multi-agent routing loop detected.\nWARN: Intent misclassification routed to wrong specialist.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 12",
+    "expected_layer_prefix": "L5",
+    "expected_layer": "L5_ORCHESTRATION_AND_ROUTING"
+  },
+  {
+    "id": 13,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 13\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nSilent masking of duplicate document collision error.\nERROR: Retry storm without exponential backoff.\nNon-idempotent double mutation triggered on retry.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 13",
+    "expected_layer_prefix": "L6",
+    "expected_layer": "L6_RETRY_LOGIC_AND_SIDE_EFFECTS"
+  },
+  {
+    "id": 14,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 14\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nDelimiter breakage in system prompt parsing.\nFAIL: Model behavior generated malformed XML.\nModel issued safety refusal response due to guidelines.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 14",
+    "expected_layer_prefix": "L7",
+    "expected_layer": "L7_MODEL_BEHAVIOR_AND_PROMPT_DRIFT"
+  },
+  {
+    "id": 15,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 15\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nRace condition on shared session memory.\nWARN: Stale cache hit overriding fresh DB state.\nConcurrency issue: thread A overwrites thread B context.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 15",
+    "expected_layer_prefix": "L8",
+    "expected_layer": "L8_STATE_CACHE_AND_CONCURRENCY"
+  },
+  {
+    "id": 16,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 16\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nTOOL CALL: retrieve_db\nERROR: Missing key 'payload' in tool response.\nException: Schema mismatch in user_id, expected int got string.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 16",
+    "expected_layer_prefix": "L1",
+    "expected_layer": "L1_TOOL_AND_SCHEMA_CONTRACTS"
+  },
+  {
+    "id": 17,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 17\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nERROR: Evidence not found due to RAG failure.\nChunk boundary truncation in retrieved context.\nWARN: Stale index returned outdated document.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 17",
+    "expected_layer_prefix": "L2",
+    "expected_layer": "L2_RETRIEVAL_AND_RAG"
+  },
+  {
+    "id": 18,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 18\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nGateway Timeout reached on downstream service.\nFATAL: Infrastructure connection timeout.\nERROR: Bearer token expired on upstream API.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 18",
+    "expected_layer_prefix": "L3",
+    "expected_layer": "L3_INFRASTRUCTURE_AND_EXTERNAL_APIS"
+  },
+  {
+    "id": 19,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 19\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nContext length exceeded maximum allowed tokens.\nException: token overflow during chat completion.\nERROR: Lost in the middle retrieval loss detected.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 19",
+    "expected_layer_prefix": "L4",
+    "expected_layer": "L4_CONTEXT_WINDOW_AND_TOKEN_LIMITS"
+  },
+  {
+    "id": 20,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 20\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nRecursive multi-agent routing loop detected.\nAgent routed to agent B, which routed to agent A.\nWARN: Intent misclassification routed to wrong specialist.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 20",
+    "expected_layer_prefix": "L5",
+    "expected_layer": "L5_ORCHESTRATION_AND_ROUTING"
+  },
+  {
+    "id": 21,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 21\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nSilent masking of duplicate document collision error.\nERROR: Retry storm without exponential backoff.\nRetrying idempotent mutation after failure...\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 21",
+    "expected_layer_prefix": "L6",
+    "expected_layer": "L6_RETRY_LOGIC_AND_SIDE_EFFECTS"
+  },
+  {
+    "id": 22,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 22\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nFAIL: Model behavior generated malformed XML.\nModel issued safety refusal response due to guidelines.\nWARN: Prompt injection via untrusted tool output.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 22",
+    "expected_layer_prefix": "L7",
+    "expected_layer": "L7_MODEL_BEHAVIOR_AND_PROMPT_DRIFT"
+  },
+  {
+    "id": 23,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 23\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nERROR: Dirty cache hit corrupted state.\nRace condition on shared session memory.\nWARN: Stale cache hit overriding fresh DB state.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 23",
+    "expected_layer_prefix": "L8",
+    "expected_layer": "L8_STATE_CACHE_AND_CONCURRENCY"
+  },
+  {
+    "id": 24,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 24\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nException: Schema mismatch in user_id, expected int got string.\nFATAL: Tool contract violated.\nTOOL CALL: retrieve_db\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 24",
+    "expected_layer_prefix": "L1",
+    "expected_layer": "L1_TOOL_AND_SCHEMA_CONTRACTS"
+  },
+  {
+    "id": 25,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 25\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nWARN: Stale index returned outdated document.\nERROR: Empty context threshold triggered.\nERROR: Evidence not found due to RAG failure.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 25",
+    "expected_layer_prefix": "L2",
+    "expected_layer": "L2_RETRIEVAL_AND_RAG"
+  },
+  {
+    "id": 26,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 26\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nGateway Timeout reached on downstream service.\nFATAL: Infrastructure connection timeout.\nHTTP 429 Too Many Requests from dependency agent.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 26",
+    "expected_layer_prefix": "L3",
+    "expected_layer": "L3_INFRASTRUCTURE_AND_EXTERNAL_APIS"
+  },
+  {
+    "id": 27,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 27\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nException: token overflow during chat completion.\nERROR: Lost in the middle retrieval loss detected.\nJSON truncation at character 4096.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 27",
+    "expected_layer_prefix": "L4",
+    "expected_layer": "L4_CONTEXT_WINDOW_AND_TOKEN_LIMITS"
+  },
+  {
+    "id": 28,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 28\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nWARN: Intent misclassification routed to wrong specialist.\nRecursive multi-agent routing loop detected.\nAgent routed to agent B, which routed to agent A.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 28",
+    "expected_layer_prefix": "L5",
+    "expected_layer": "L5_ORCHESTRATION_AND_ROUTING"
+  },
+  {
+    "id": 29,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 29\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nERROR: Retry storm without exponential backoff.\nRetrying idempotent mutation after failure...\nSilent masking of duplicate document collision error.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 29",
+    "expected_layer_prefix": "L6",
+    "expected_layer": "L6_RETRY_LOGIC_AND_SIDE_EFFECTS"
+  },
+  {
+    "id": 30,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 30\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nDelimiter breakage in system prompt parsing.\nFAIL: Model behavior generated malformed XML.\nModel issued safety refusal response due to guidelines.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 30",
+    "expected_layer_prefix": "L7",
+    "expected_layer": "L7_MODEL_BEHAVIOR_AND_PROMPT_DRIFT"
+  },
+  {
+    "id": 31,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 31\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nWARN: Stale cache hit overriding fresh DB state.\nERROR: Dirty cache hit corrupted state.\nConcurrency issue: thread A overwrites thread B context.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 31",
+    "expected_layer_prefix": "L8",
+    "expected_layer": "L8_STATE_CACHE_AND_CONCURRENCY"
+  },
+  {
+    "id": 32,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 32\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nERROR: Missing key 'payload' in tool response.\nWARN: Enum drift detected in status field.\nFATAL: Tool contract violated.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 32",
+    "expected_layer_prefix": "L1",
+    "expected_layer": "L1_TOOL_AND_SCHEMA_CONTRACTS"
+  },
+  {
+    "id": 33,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 33\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nERROR: Empty context threshold triggered.\nSearching vector DB... semantic drift detected.\nERROR: Evidence not found due to RAG failure.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 33",
+    "expected_layer_prefix": "L2",
+    "expected_layer": "L2_RETRIEVAL_AND_RAG"
+  },
+  {
+    "id": 34,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 34\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nHTTP 429 Too Many Requests from dependency agent.\nFATAL: Infrastructure connection timeout.\nERROR: Bearer token expired on upstream API.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 34",
+    "expected_layer_prefix": "L3",
+    "expected_layer": "L3_INFRASTRUCTURE_AND_EXTERNAL_APIS"
+  },
+  {
+    "id": 35,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 35\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nContext length exceeded maximum allowed tokens.\nJSON truncation at character 4096.\nException: token overflow during chat completion.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 35",
+    "expected_layer_prefix": "L4",
+    "expected_layer": "L4_CONTEXT_WINDOW_AND_TOKEN_LIMITS"
+  },
+  {
+    "id": 36,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 36\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nWARN: Intent misclassification routed to wrong specialist.\nAgent routed to agent B, which routed to agent A.\nRecursive multi-agent routing loop detected.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 36",
+    "expected_layer_prefix": "L5",
+    "expected_layer": "L5_ORCHESTRATION_AND_ROUTING"
+  },
+  {
+    "id": 37,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 37\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nNon-idempotent double mutation triggered on retry.\nSilent masking of duplicate document collision error.\nRetrying idempotent mutation after failure...\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 37",
+    "expected_layer_prefix": "L6",
+    "expected_layer": "L6_RETRY_LOGIC_AND_SIDE_EFFECTS"
+  },
+  {
+    "id": 38,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 38\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nFAIL: Model behavior generated malformed XML.\nWARN: Prompt injection via untrusted tool output.\nModel issued safety refusal response due to guidelines.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 38",
+    "expected_layer_prefix": "L7",
+    "expected_layer": "L7_MODEL_BEHAVIOR_AND_PROMPT_DRIFT"
+  },
+  {
+    "id": 39,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 39\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nERROR: Dirty cache hit corrupted state.\nConcurrency issue: thread A overwrites thread B context.\nWARN: Stale cache hit overriding fresh DB state.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 39",
+    "expected_layer_prefix": "L8",
+    "expected_layer": "L8_STATE_CACHE_AND_CONCURRENCY"
+  },
+  {
+    "id": 40,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 40\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nFATAL: Tool contract violated.\nERROR: Missing key 'payload' in tool response.\nTOOL CALL: retrieve_db\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 40",
+    "expected_layer_prefix": "L1",
+    "expected_layer": "L1_TOOL_AND_SCHEMA_CONTRACTS"
+  },
+  {
+    "id": 41,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 41\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nERROR: Evidence not found due to RAG failure.\nERROR: Empty context threshold triggered.\nSearching vector DB... semantic drift detected.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 41",
+    "expected_layer_prefix": "L2",
+    "expected_layer": "L2_RETRIEVAL_AND_RAG"
+  },
+  {
+    "id": 42,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 42\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nGateway Timeout reached on downstream service.\nHTTP 429 Too Many Requests from dependency agent.\nERROR: Bearer token expired on upstream API.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 42",
+    "expected_layer_prefix": "L3",
+    "expected_layer": "L3_INFRASTRUCTURE_AND_EXTERNAL_APIS"
+  },
+  {
+    "id": 43,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 43\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nERROR: Lost in the middle retrieval loss detected.\nContext length exceeded maximum allowed tokens.\nException: token overflow during chat completion.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 43",
+    "expected_layer_prefix": "L4",
+    "expected_layer": "L4_CONTEXT_WINDOW_AND_TOKEN_LIMITS"
+  },
+  {
+    "id": 44,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 44\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nWARN: Intent misclassification routed to wrong specialist.\nERROR: Orchestration missing explicit fallbacks.\nAgent routed to agent B, which routed to agent A.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 44",
+    "expected_layer_prefix": "L5",
+    "expected_layer": "L5_ORCHESTRATION_AND_ROUTING"
+  },
+  {
+    "id": 45,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 45\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nERROR: Retry storm without exponential backoff.\nRetrying idempotent mutation after failure...\nSilent masking of duplicate document collision error.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 45",
+    "expected_layer_prefix": "L6",
+    "expected_layer": "L6_RETRY_LOGIC_AND_SIDE_EFFECTS"
+  },
+  {
+    "id": 46,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 46\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nFAIL: Model behavior generated malformed XML.\nDelimiter breakage in system prompt parsing.\nWARN: Prompt injection via untrusted tool output.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 46",
+    "expected_layer_prefix": "L7",
+    "expected_layer": "L7_MODEL_BEHAVIOR_AND_PROMPT_DRIFT"
+  },
+  {
+    "id": 47,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 47\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nWARN: Stale cache hit overriding fresh DB state.\nConcurrency issue: thread A overwrites thread B context.\nERROR: Dirty cache hit corrupted state.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 47",
+    "expected_layer_prefix": "L8",
+    "expected_layer": "L8_STATE_CACHE_AND_CONCURRENCY"
+  },
+  {
+    "id": 48,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 48\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nTOOL CALL: retrieve_db\nFATAL: Tool contract violated.\nWARN: Enum drift detected in status field.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 48",
+    "expected_layer_prefix": "L1",
+    "expected_layer": "L1_TOOL_AND_SCHEMA_CONTRACTS"
+  },
+  {
+    "id": 49,
+    "raw_trace": "INFO: Starting telemetry capture for agent run 49\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nERROR: Empty context threshold triggered.\nChunk boundary truncation in retrieved context.\nERROR: Evidence not found due to RAG failure.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 49",
+    "expected_layer_prefix": "L2",
+    "expected_layer": "L2_RETRIEVAL_AND_RAG"
+  }
+]

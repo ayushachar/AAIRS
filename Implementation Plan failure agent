@@ -1,0 +1,51 @@
+# Implementation Plan - Agent Failure Triage Platform
+
+Architecting and implementing a production-grade automated SRE Agent Failure Triage Platform that ingests multi-step AI agent telemetry traces, normalizes tokens, deterministically grounds evidence citations, classifies failures according to a 9-category taxonomy using LangGraph, and runs regression benchmarks against LLM judges.
+
+## User Review Required
+
+> [!IMPORTANT]
+> The project will be created in `C:\Users\ayush\.gemini\antigravity\scratch\agent-failure-triage`. We will provide a complete standalone FastAPI backend, LangGraph engine, Pytest unit tests, synthetic dataset with 50+ test cases, and a sleek web-based SRE Triage Dashboard for real-time telemetry inspection and evaluation reporting.
+
+## Proposed Components & Structure
+
+```
+agent-failure-triage/
+├── requirements.txt
+├── Dockerfile
+├── .env.example
+├── README.md
+├── src/
+│   ├── __init__.py
+│   ├── schemas.py             # Pydantic v2 schemas & taxonomy
+│   ├── trace_normalizer.py    # Log pruning & token optimizer
+│   ├── verifier.py            # Substring/regex evidence verifier
+│   ├── pipeline.py            # LangGraph state machine & reflection
+│   ├── main.py                # FastAPI gateway & dashboard API
+│   └── evaluate.py            # Benchmark execution harness (Groq / Gemini)
+├── static/                    # Glassmorphic SRE Web UI Dashboard
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
+├── data/
+│   └── failure_traces.json    # 50+ synthetic failure trace benchmark cases
+└── tests/
+    ├── __init__.py
+    └── test_triage.py         # Pytest verification suite
+```
+
+### Key Functional Features
+1. **Taxonomy Enforcement**: Enforces 9 root cause categories (`stale_retrieval`, `empty_context_retrieval`, `tool_contract_mismatch`, `malformed_tool_arguments`, `external_api_failure`, `context_window_overflow`, `orchestration_routing_error`, `unsafe_retry_logic`, `cross_model_behavior_drift`).
+2. **LangGraph Reflection Loop**: Substring grounding verifier validates every cited snippet. If evidence is missing, feedback is fed back into the prompt for up to 3 retries.
+3. **Token Optimization**: Trims noise while preserving error stack traces and boundary logs to minimize Gemini token usage.
+4. **Interactive SRE Dashboard**: Full visual UI showcasing incident ingestion, live diagnosis execution with streaming graph updates, highlighted trace citations, and benchmark accuracy analytics.
+
+## Verification Plan
+
+### Automated Tests
+- Pytest suite covering token normalization, verifier accuracy, schema validation, FastAPI endpoints, and mock reflection cycles.
+- Run: `pytest tests/`
+
+### Manual Verification
+- Test FastAPI `/healthz` and `/v1/triage` endpoints with curl/requests.
+- Verify SRE Dashboard in browser for trace parsing, failure classification, and grounding verification visualization.

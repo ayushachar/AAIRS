@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRE Control Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="glass-container">
+        <header>
+            <h1>Agent Failure Triage Dashboard</h1>
+            <p>Automated Diagnostic SRE Engine</p>
+        </header>
+
+        <main>
+            <section class="trace-ingestion">
+                <h2>Raw Trace Ingestion</h2>
+                <textarea id="raw-trace" rows="10" placeholder="Paste raw telemetry trace here..."></textarea>
+                <button id="triage-btn">Run Triage</button>
+            </section>
+
+            <section class="state-visualizer">
+                <h2>Pipeline Execution State</h2>
+                <div id="execution-steps" class="steps">
+                    <div class="step" id="step-triage">Triage Node</div>
+                    <div class="step" id="step-verifier">Verifier Node</div>
+                    <div class="step" id="step-reflection">Reflection Loop</div>
+                    <div class="step" id="step-resolved">Verified Resolution</div>
+                </div>
+            </section>
+
+            <section class="grounding-inspector">
+                <h2>Grounding Verification Inspector</h2>
+                <div id="diagnosis-results"></div>
+                <div id="unverified-snippets"></div>
+            </section>
+
+            <section class="metrics-panel">
+                <h2>Metrics & Diagnostics Matrix</h2>
+                <canvas id="accuracyChart"></canvas>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{
+  "golden_cases": 50,
+  "langgraph_correct": 50,
+  "baseline_correct": 15,
+  "langgraph_accuracy_pct": 100.0,
+  "baseline_accuracy_pct": 30.0,
+  "grounding_pass_rate_pct": 100.0,
+  "token_optimization_ratio": 0.0,
+  "extended_csv_rows": 1500,
+  "failure_type_distribution": {
+    "Context Failure": 179,
+    "Grounding Failure": 84,
+    "Instruction Following Failure": 165,
+    "Planning Failure": 110,
+    "Tool Use Failure": 195,
+    "Reasoning Failure": 215,
+    "Knowledge Failure": 74,
+    "Termination Failure": 131,
+    "Hallucination": 145,
+    "Memory Failure": 109,
+    "Safety & Alignment Failure": 44,
+    "Coordination Failure": 49
+  },
+  "layer_distribution": {
+    "L2_RETRIEVAL_AND_RAG": 337,
+    "L7_MODEL_BEHAVIOR_AND_PROMPT_DRIFT": 380,
+    "L5_ORCHESTRATION_AND_ROUTING": 588,
+    "L1_TOOL_AND_SCHEMA_CONTRACTS": 195
+  },
+  "preloaded_scenarios": [
+    {
+      "id": 0,
+      "label": "Case 0 (L1)",
+      "raw_trace": "INFO: Starting telemetry capture for agent run 0\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nTOOL CALL: retrieve_db\nWARN: Enum drift detected in status field.\nFATAL: Tool contract violated.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 0"
+    },
+    {
+      "id": 1,
+      "label": "Case 1 (L2)",
+      "raw_trace": "INFO: Starting telemetry capture for agent run 1\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nChunk boundary truncation in retrieved context.\nERROR: Empty context threshold triggered.\nSearching vector DB... semantic drift detected.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 1"
+    },
+    {
+      "id": 2,
+      "label": "Case 2 (L3)",
+      "raw_trace": "INFO: Starting telemetry capture for agent run 2\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nHTTP 429 Too Many Requests from dependency agent.\nERROR: DB pool exhaustion on connection acquire.\nFATAL: Infrastructure connection timeout.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 2"
+    },
+    {
+      "id": 3,
+      "label": "Case 3 (L4)",
+      "raw_trace": "INFO: Starting telemetry capture for agent run 3\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nINFO: healthcheck passed\nContext length exceeded maximum allowed tokens.\nERROR: Lost in the middle retrieval loss detected.\nException: token overflow during chat completion.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 3"
+    },
+    {
+      "id": 4,
+      "label": "Case 4 (L5)",
+      "raw_trace": "INFO: Starting telemetry capture for agent run 4\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nRecursive multi-agent routing loop detected.\nERROR: Orchestration missing explicit fallbacks.\nAgent routed to agent B, which routed to agent A.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 4"
+    },
+    {
+      "id": 5,
+      "label": "Case 5 (L6)",
+      "raw_trace": "INFO: Starting telemetry capture for agent run 5\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: polling agent status\nNon-idempotent double mutation triggered on retry.\nSilent masking of duplicate document collision error.\nERROR: Retry storm without exponential backoff.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 5"
+    },
+    {
+      "id": 6,
+      "label": "Case 6 (L7)",
+      "raw_trace": "INFO: Starting telemetry capture for agent run 6\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nWARN: Prompt injection via untrusted tool output.\nFAIL: Model behavior generated malformed XML.\nDelimiter breakage in system prompt parsing.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 6"
+    },
+    {
+      "id": 7,
+      "label": "Case 7 (L8)",
+      "raw_trace": "INFO: Starting telemetry capture for agent run 7\nUSER: Execute multi-step data processing pipeline\nASSISTANT: Initializing workflow...\nDEBUG: heartbeat ok\nRace condition on shared session memory.\nERROR: Dirty cache hit corrupted state.\nWARN: Stale cache hit overriding fresh DB state.\nERROR: Workflow terminated unexpectedly.\nINFO: End telemetry capture for agent run 7"
+    }
+  ]
+}
