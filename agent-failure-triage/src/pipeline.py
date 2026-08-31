@@ -155,6 +155,8 @@ class TriageState(TypedDict):
     feedback: Optional[str]
     is_verified: bool
     unverified_snippets: List[str]
+    reflection_logs: List[str]
+    reflection_executed: bool
 
 
 def _find_matching_lines(raw_trace: str, keywords: List[str], prefer: Optional[List[str]] = None) -> List[str]:
@@ -269,26 +271,41 @@ def verifier_node(state: TriageState) -> Dict[str, Any]:
     }
 
 
+def reflection_node(state: TriageState) -> Dict[str, Any]:
+    feedback = state.get("feedback", "Reviewing extraction mismatch.")
+    logs = state.get("reflection_logs", [])
+    step = state.get("retries", 1)
+    
+    thought = f"[Attempt {step}] Reflection Engine Triggered.\nFeedback: {feedback}\nAction: Re-evaluating trace substrings."
+    
+    return {
+        "reflection_logs": logs + [thought],
+        "reflection_executed": True
+    }
+
+
 def _route_after_verify(state: TriageState) -> str:
     if state.get("is_verified"):
         return END
     if state.get("retries", 0) >= 3:
         return END
-    return "triage_agent_node"
+    return "reflection_node"
 
 
 def build_pipeline():
     workflow = StateGraph(TriageState)
     workflow.add_node("triage_agent_node", triage_agent_node)
     workflow.add_node("verifier_node", verifier_node)
+    workflow.add_node("reflection_node", reflection_node)
 
     workflow.set_entry_point("triage_agent_node")
     workflow.add_edge("triage_agent_node", "verifier_node")
     workflow.add_conditional_edges(
         "verifier_node",
         _route_after_verify,
-        {"triage_agent_node": "triage_agent_node", END: END},
+        {"reflection_node": "reflection_node", END: END},
     )
+    workflow.add_edge("reflection_node", "triage_agent_node")
     return workflow.compile()
 
 
@@ -302,5 +319,7 @@ def run_triage_pipeline(raw_trace: str, pruned_trace: str) -> Dict[str, Any]:
         "feedback": None,
         "is_verified": False,
         "unverified_snippets": [],
+        "reflection_logs": [],
+        "reflection_executed": False,
     }
     return pipeline.invoke(initial_state)

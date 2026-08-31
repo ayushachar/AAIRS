@@ -35,3 +35,5 @@ class TriageResponse(BaseModel):
     diagnosis: TriageDiagnosis
     pruned_token_count: int
     unverified_snippets: List[str]
+    reflection_executed: bool = False
+    reflection_logs: List[str] = Field(default_factory=list)

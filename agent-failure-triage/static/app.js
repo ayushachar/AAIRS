@@ -56,10 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 setTimeout(() => {
                     document.getElementById('step-verifier').classList.replace('active', 'completed');
-                    if (data.retries_used > 0) {
+                    if (data.reflection_executed || (data.reflection_logs && data.reflection_logs.length > 0)) {
                         const refStep = document.getElementById('step-reflection');
                         refStep.classList.add('active', 'clickable');
-                        document.getElementById('reflection-content').textContent = "Caught Hallucinated Verifier Snippets:\n" + data.unverified_snippets.map(s => `- ${s}`).join('\n') + "\n\nTotal Correction Retries Triggered: " + data.retries_used;
+
+                        let combinedLogs = data.reflection_logs.join('\n\n');
+                        if (!combinedLogs) {
+                            combinedLogs = "Caught Hallucinated Verifier Snippets:\n" + data.unverified_snippets.map(s => `- ${s}`).join('\n') + "\n\nTotal Correction Retries Triggered: " + data.retries_used;
+                        }
+
+                        document.getElementById('reflection-content').textContent = combinedLogs;
                         refStep.onclick = () => document.getElementById('reflection-modal').classList.toggle('hidden');
                     }
                     setTimeout(() => {

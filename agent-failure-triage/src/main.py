@@ -70,6 +70,8 @@ async def triage(request: TriageRequest):
         diagnosis=diagnosis,
         pruned_token_count=len(pruned_trace),
         unverified_snippets=final_state.get("unverified_snippets", []),
+        reflection_executed=final_state.get("reflection_executed", False),
+        reflection_logs=final_state.get("reflection_logs", []),
     )
 
 
