@@ -177,6 +177,22 @@ def _find_matching_lines(raw_trace: str, keywords: List[str], prefer: Optional[L
     return matches[:3]
 
 
+def _extract_context(evidence_line: str, fallback_msg: str) -> str:
+    path_match = re.search(r"(/[\w/.\-]+:\d+)", evidence_line)
+    field_match = re.search(r"(KeyError|missing key|not found)[:]?\s*['\"]?([A-Za-z0-9_]+)['\"]?", evidence_line, re.IGNORECASE)
+    
+    details = []
+    if path_match:
+        details.append(f"at file location {path_match.group(1)}")
+    if field_match:
+        details.append(f"missing field '{field_match.group(2)}'")
+        
+    line_segment = evidence_line.strip()[:80] + "..." if len(evidence_line) > 80 else evidence_line.strip()
+    if details:
+        return f"{fallback_msg} (Extracted specifics: {', '.join(details)} from '{line_segment}')"
+    return f"{fallback_msg} (Context: '{line_segment}')"
+
+
 def _classify_trace(raw_trace: str, feedback: Optional[str] = None) -> TriageDiagnosis:
     prefer: Optional[List[str]] = None
     if feedback:
@@ -199,7 +215,7 @@ def _classify_trace(raw_trace: str, feedback: Optional[str] = None) -> TriageDia
 
             return TriageDiagnosis(
                 layer=layer,
-                root_cause_summary=SUMMARIES[layer],
+                root_cause_summary=_extract_context(evidence[0], SUMMARIES[layer]),
                 cited_evidence=evidence[:3],
                 confidence=0.95,
                 suggested_remediation=REMEDIATIONS[layer],
@@ -209,9 +225,10 @@ def _classify_trace(raw_trace: str, feedback: Optional[str] = None) -> TriageDia
         (line for line in raw_trace.split("\n") if "ERROR" in line.upper() or "FATAL" in line.upper()),
         raw_trace.split("\n")[0] if raw_trace else "ERROR: unknown failure",
     )
+    fallback_summary = _extract_context(fallback_line, "Unclassified failure defaulting to tool/schema contract layer.")
     return TriageDiagnosis(
         layer=FailureLayer.L1_TOOL_AND_SCHEMA_CONTRACTS,
-        root_cause_summary="Unclassified failure defaulting to tool/schema contract layer.",
+        root_cause_summary=fallback_summary,
         cited_evidence=[fallback_line],
         confidence=0.5,
         suggested_remediation=REMEDIATIONS[FailureLayer.L1_TOOL_AND_SCHEMA_CONTRACTS],

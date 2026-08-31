@@ -1,6 +1,7 @@
+let myChart;
 document.addEventListener('DOMContentLoaded', () => {
     const ctx = document.getElementById('accuracyChart').getContext('2d');
-    new Chart(ctx, {
+    myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ['Baseline (No Reflection)', 'LangGraph Reflection Pipeline'],
@@ -33,7 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const trace = document.getElementById('raw-trace').value;
         if (!trace) return alert('Enter a trace first.');
 
-        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.step').forEach(el => {
+            el.classList.remove('active', 'completed', 'clickable');
+            el.onclick = null;
+        });
+        document.getElementById('reflection-modal').classList.add('hidden');
         document.getElementById('step-triage').classList.add('active');
 
         try {
@@ -44,37 +49,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ session_id: sessionId, raw_trace: trace })
             });
             const data = await response.json();
-            
+
             setTimeout(() => {
-                document.getElementById('step-triage').classList.remove('active');
+                document.getElementById('step-triage').classList.replace('active', 'completed');
                 document.getElementById('step-verifier').classList.add('active');
-                
+
                 setTimeout(() => {
-                    document.getElementById('step-verifier').classList.remove('active');
+                    document.getElementById('step-verifier').classList.replace('active', 'completed');
                     if (data.retries_used > 0) {
-                        document.getElementById('step-reflection').classList.add('active');
+                        const refStep = document.getElementById('step-reflection');
+                        refStep.classList.add('active', 'clickable');
+                        document.getElementById('reflection-content').textContent = "Caught Hallucinated Verifier Snippets:\n" + data.unverified_snippets.map(s => `- ${s}`).join('\n') + "\n\nTotal Correction Retries Triggered: " + data.retries_used;
+                        refStep.onclick = () => document.getElementById('reflection-modal').classList.toggle('hidden');
                     }
                     setTimeout(() => {
-                        document.getElementById('step-reflection').classList.remove('active');
-                        document.getElementById('step-resolved').classList.add('active');
-                        
+                        const refStep = document.getElementById('step-reflection');
+                        if (refStep.classList.contains('active')) refStep.classList.replace('active', 'completed');
+
+                        document.getElementById('step-resolved').classList.add('completed');
+
                         const diagRes = document.getElementById('diagnosis-results');
                         if (data.diagnosis) {
                             diagRes.innerHTML = `
                                 <h3>Classification: <span class="success">${data.diagnosis.layer}</span></h3>
-                                <p><strong>Root Cause:</strong> ${data.diagnosis.root_cause_summary}</p>
+                                <p><strong>Dynamic Root Cause:</strong> ${data.diagnosis.root_cause_summary}</p>
                                 <p><strong>Remediation:</strong> ${data.diagnosis.suggested_remediation}</p>
                                 <h4>Grounding Evidence (${data.is_verified ? 'Verified' : 'Unverified'}):</h4>
                                 <ul>${data.diagnosis.cited_evidence.map(e => `<li>${e}</li>`).join('')}</ul>
                             `;
+
+                            // Dynamically update the bar chart with the current trace's performance
+                            myChart.data.datasets[0].data = [32, data.diagnosis.confidence * 100];
+                            myChart.update();
                         } else {
                             diagRes.innerHTML = `<p class="warning">Failed to extract diagnosis.</p>`;
                         }
-                        
+
                     }, data.retries_used > 0 ? 1000 : 0);
                 }, 1000);
             }, 1000);
-            
+
         } catch (error) {
             console.error('Error:', error);
             alert('Failed to connect to triage API.');

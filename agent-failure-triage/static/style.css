@@ -21,12 +21,13 @@ body {
 
 header {
     text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 20px;
     margin-bottom: 30px;
 }
 
-h1, h2 {
+h1,
+h2 {
     color: #38bdf8;
     margin-top: 0;
 }
@@ -79,15 +80,50 @@ button:hover {
     box-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
 }
 
+.step.completed {
+    background: #059669;
+    color: white;
+    border-color: #10b981;
+}
+
+.step.clickable {
+    cursor: pointer;
+    border-color: #f59e0b;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+}
+
+.step.clickable:hover {
+    background: #d97706;
+}
+
+.hidden {
+    display: none;
+}
+
+.reflection-box {
+    margin-top: 20px;
+    background: #1e293b;
+    border: 1px dashed #f59e0b;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.reflection-box pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #f8fafc;
+}
+
 .metrics-panel {
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .warning {
     color: #fca5a5;
 }
+
 .success {
     color: #86efac;
 }
