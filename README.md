@@ -1,7 +1,5 @@
 # Autonomous API Integration & Reliability Suite (AAIRS)
 
-> **Frontier Engineering Challenge 2026 Submission**  
-> **Repository:** [github.com/ayushaachar/AAIRS](https://github.com/ayushaachar/AAIRS)  
 > **Author:** Ayush Achar (`ayushaachar`)
 
 ---
@@ -172,15 +170,3 @@ Tool Response:
   records_deleted: 14
 
 ***
-
-### How to Update Your README in Antigravity/PowerShell
-
-Run these commands in your PowerShell terminal to update your live repository:
-
-```powershell
-cd "C:\Users\ayush\Downloads\New folder"
-
-# Stage, commit, and push the README
-git add README.md
-git commit -m "Update README with complete project instructions, changelog, and reproduction guide"
-git push origin main
