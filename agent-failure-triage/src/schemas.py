@@ -37,3 +37,4 @@ class TriageResponse(BaseModel):
     unverified_snippets: List[str]
     reflection_executed: bool = False
     reflection_logs: List[str] = Field(default_factory=list)
+    ao_status: Optional[dict] = None

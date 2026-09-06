@@ -157,6 +157,8 @@ class TriageState(TypedDict):
     unverified_snippets: List[str]
     reflection_logs: List[str]
     reflection_executed: bool
+    ao_status: Optional[Dict[str, Any]]
+
 
 
 def _find_matching_lines(raw_trace: str, keywords: List[str], prefer: Optional[List[str]] = None) -> List[str]:
@@ -243,7 +245,7 @@ def triage_agent_node(state: TriageState) -> Dict[str, Any]:
     return {"diagnosis": diagnosis.model_dump()}
 
 
-def verifier_node(state: TriageState) -> Dict[str, Any]:
+async def verifier_node(state: TriageState) -> Dict[str, Any]:
     diagnosis = state.get("diagnosis")
     if not diagnosis:
         return {
@@ -257,7 +259,17 @@ def verifier_node(state: TriageState) -> Dict[str, Any]:
     passed, unverified = verify_evidence(state["raw_trace"], cited)
 
     if passed:
-        return {"is_verified": True, "unverified_snippets": []}
+        from src.integrations.ao import dispatch_to_ao
+        import uuid
+        import asyncio
+        trace_id = str(uuid.uuid4())
+        error_type = diagnosis.get("layer", "UNKNOWN")
+        confidence = diagnosis.get("confidence", 0.0)
+        
+        # Invoking non-blockingly but awaiting to get result for the state, OR task approach:
+        ao_status = await dispatch_to_ao(trace_id, error_type, confidence)
+
+        return {"is_verified": True, "unverified_snippets": [], "ao_status": ao_status}
 
     feedback = (
         f"CRITICAL GROUNDING FAILURE: The cited snippets were NOT found verbatim in the raw trace: "
@@ -309,7 +321,7 @@ def build_pipeline():
     return workflow.compile()
 
 
-def run_triage_pipeline(raw_trace: str, pruned_trace: str) -> Dict[str, Any]:
+async def run_triage_pipeline(raw_trace: str, pruned_trace: str) -> Dict[str, Any]:
     pipeline = build_pipeline()
     initial_state: TriageState = {
         "raw_trace": raw_trace,
@@ -321,5 +333,6 @@ def run_triage_pipeline(raw_trace: str, pruned_trace: str) -> Dict[str, Any]:
         "unverified_snippets": [],
         "reflection_logs": [],
         "reflection_executed": False,
+        "ao_status": None,
     }
-    return pipeline.invoke(initial_state)
+    return await pipeline.ainvoke(initial_state)

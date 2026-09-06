@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         document.getElementById('reflection-modal').classList.add('hidden');
         document.getElementById('step-triage').classList.add('active');
+        document.getElementById('ao-status-badge').innerHTML = `AO Decentralized Audit: <span style="color: gray;">Pending</span>`;
 
         try {
             const sessionId = "sess_" + Math.random().toString(36).substring(7);
@@ -87,6 +88,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             // Dynamically update the bar chart with the current trace's performance
                             myChart.data.datasets[0].data = [32, data.diagnosis.confidence * 100];
                             myChart.update();
+
+                            const aoBadge = document.getElementById('ao-status-badge');
+                            if (data.ao_status && data.ao_status.ao_logged) {
+                                aoBadge.innerHTML = `AO Decentralized Audit: <span style="color: #4ade80;">Active (${data.ao_status.gateway})</span>`;
+                            } else {
+                                aoBadge.innerHTML = `AO Decentralized Audit: <span style="color: #ef4444;">Failed</span>`;
+                            }
                         } else {
                             diagRes.innerHTML = `<p class="warning">Failed to extract diagnosis.</p>`;
                         }

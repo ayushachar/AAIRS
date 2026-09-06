@@ -59,7 +59,7 @@ async def triage(request: TriageRequest):
     raw_trace = request.raw_trace
     pruned_trace = prune_telemetry_trace(raw_trace)
 
-    final_state = run_triage_pipeline(raw_trace, pruned_trace)
+    final_state = await run_triage_pipeline(raw_trace, pruned_trace)
     diagnosis_data = final_state.get("diagnosis") or {}
 
     diagnosis = TriageDiagnosis(**diagnosis_data)
@@ -72,6 +72,7 @@ async def triage(request: TriageRequest):
         unverified_snippets=final_state.get("unverified_snippets", []),
         reflection_executed=final_state.get("reflection_executed", False),
         reflection_logs=final_state.get("reflection_logs", []),
+        ao_status=final_state.get("ao_status", None),
     )
 
 
