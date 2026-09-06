@@ -164,6 +164,11 @@ Guardrail Trigger:
 Human Decision:
   User Response: "APPROVED"
 
+## 🌐 AO Decentralized Integration
+
+AAIRS integrates with the **AO Decentralized Supercomputer** to provide immutable, tamper-proof audit trails for every incident triage cycle.
+
+### Architecture Flow
 STEP 2: Execution Post-Approval
 Tool Response:
   status: "SUCCESS"
